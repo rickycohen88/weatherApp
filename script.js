@@ -9,8 +9,21 @@ let apicallForcast5 = "forecast?q=";
 let apikey = "&appid=2c0399c1f79831688f57fb28daf65e33";
 let cCwReturn = undefined;
 let cC5Return = undefined;
+let latt;
+let long;
+let uv;
 
 let search = document.getElementById("search").value;
+
+function uvCall(){
+    let uvIndexcall ="https://api.openweathermap.org/data/2.5/uvi?lat="+latt+"&lon="+long+"&appid=2c0399c1f79831688f57fb28daf65e33";
+    $.ajax({url:uvIndexcall,method: "GET"})
+    .then(function(responce){
+        console.log(responce);
+        uv = responce;
+        document.getElementById("uv").textContent = uv.value;
+    });
+}
 
 
 function callApiCCW(){
@@ -19,12 +32,13 @@ function callApiCCW(){
     // Log the data in HTML
     .then(function(response) {
       console.log(response);
-      if(cCwReturn == undefined){
-          cCwReturn = response;
-      }
-      else{
-          console.log("cCw not undefined")
-      }
+       cCwReturn = response;
+       console.log(typeof cCwReturn);
+       // latt=cCwReturn.coord.lat;
+       // long=cCwReturn.coord.lon;
+       // uvCall();
+          displayCurrent();
+    
 
     });
 }
@@ -35,13 +49,8 @@ function callApiCC5(){
     // Log the data in HTML
     .then(function(response) {
       console.log(response);
-      if(cC5Return == undefined){
-          cC5Return = response;
-      }
-      else{
-          console.log("cC5 not undefined")
-      }
-
+        cC5Return = response;
+ 
     });
 }
 
@@ -60,20 +69,60 @@ $("#searchBtn").on("click",function(){
     console.log("called api for ccw");
     callApiCC5();
     console.log("called api for cc5");
+    savedCities();
 
 })
 
 function buildCurrCall(){
     cCw = "";
     cCw = apiAddress.concat(apiCallCurrent,search,apikey);
-    console.log(cCw);
-    console.log(typeof cCw);
-
 }
 
 function buildFutCall(){
     cC5 = "";
     cC5 = apiAddress.concat(apicallForcast5,search,apikey);
-    console.log(cC5);
-    console.log(typeof cC5);
+}
+
+function displayCurrent(){
+    document.getElementById("cityname").textContent = cCwReturn.name;
+    document.getElementById("temp").textContent = cCwReturn.main.temp +"*F";
+    document.getElementById("hum").textContent = cCwReturn.main.humidity +"%";
+    document.getElementById("wind").textContent = cCwReturn.wind.speed +" MPH";
+    latt = cCwReturn.coord.lat;
+    long = cCwReturn.coord.lon;
+    uvCall();
+    
+    
+
+}
+
+function savedCities(){
+    let cities = JSON.parse(window.localStorage.getItem("Savedcities")) || [];
+
+      let newCity = {
+          name: search,
+      };
+      cities.push(newCity);
+      window.localStorage.setItem("SavedCities",JSON.stringify(cities));
+      displayCities();
+}
+function displayCities (){
+    let cities = JSON.parse(window.localStorage.getItem("Savedcities")) || [];
+
+    for(i=0;i<=cities.length;i++){
+        let butt = document.createElement("button");
+        //butt.textContent = cities[i][name];
+        butt.setAttribute("class","btn");
+        butt.className +=(" btn-secondary");
+        butt.className +=(" btn-lg");
+        document.getElementById("cityButtons").appendChild(butt);
+        let brek = document.createElement("br");
+        document.getElementById("cityButtons").appendChild(brek);
+        
+    }
+
+}
+function clearCities(){
+    window.localStorage.removeItem("cities");
+    window.location.reload();
 }
