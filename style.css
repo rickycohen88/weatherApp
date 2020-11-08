@@ -1,8 +1,22 @@
+body{
+    color: white;
+    background-color: black;
+}
+.jumbotron{
+    color: white;
+    background-color: midnightblue;
+}
+
+h2{
+    font-size: larger;
+    color: white;
+}
+
 aside{
     float: left;
     max-width: 30%;
+    padding-left: 20px;
 }
-h2{
-    font-size: larger;
-    color: black;
+.btn{
+    margin: 2px;
 }

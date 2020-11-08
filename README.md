@@ -30,13 +30,12 @@ just download the files directly for git hub.
 ![Image](images/Screen1.JPG "Screenshot 1")
 ![Image](images/screen2.JPG "Screenshot 2")
 
-[Link](https://rickycohen88.github.io/CodeRefractor/)
+[Link](https://rickycohen88.github.io/weatherApp/)
 
 ### Credits
 * Trillogy Education
-* Webaim.org
-* nvaccess
-
+* open weather Api
+* moment.js
 ### Contributing
 Pull requests are welcome. For major changes,<br>
 please open an issue first to discuss what you would like to change.<br>
