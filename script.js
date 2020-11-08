@@ -15,7 +15,8 @@ let latt;
 let long;
 let uv;
 let search;
-
+now = moment().format('LLLL');
+            
 
 function uvCall(){
     let uvIndexcall ="https://api.openweathermap.org/data/2.5/uvi?lat="+latt+"&lon="+long+"&appid=2c0399c1f79831688f57fb28daf65e33";
@@ -59,6 +60,10 @@ function callApiCC5(){
 
 $("#searchBtn").on("click",function(){
     search=document.getElementById("search").value;
+    if (search ==""){
+        alert("search cannot be blank");
+    }
+    else{
     console.log("button clicked");
     console.log(search);
     cCwReturn= undefined;
@@ -71,7 +76,7 @@ $("#searchBtn").on("click",function(){
     callApiCCW();
     console.log("called api for ccw");
     savedCities();
-
+    }
 })
 
 function buildCurrCall(){
@@ -86,6 +91,9 @@ function buildFutCall(){
 
 function displayCurrent(){
     document.getElementById("cityname").textContent = cCwReturn.name;
+    document.getElementById("weatherPNG").setAttribute("src","http://openweathermap.org/img/wn/"+cCwReturn.weather[0].icon+"@2x.png");
+    now = moment().format('LLLL');
+    document.getElementById("timeDate").textContent = now;
     document.getElementById("temp").textContent = cCwReturn.main.temp ;
     document.getElementById("hum").textContent = cCwReturn.main.humidity +"%";
     document.getElementById("wind").textContent = cCwReturn.wind.speed +" MPH";
