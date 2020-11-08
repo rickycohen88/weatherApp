@@ -1,19 +1,21 @@
 
 //api call for City[ "https://api.openweathermap.org/data/2.5/weather?q=Bujumbura,Burundi&appid=2c0399c1f79831688f57fb28daf65e33" ];
 // api call for 5 day  https://api.openweathermap.org/data/2.5/forecast?q={city name}&appid={API key}
+//api.openweathermap.org/data/2.5/find?q=London&units=imperial
+
 let cCw ="";
 let cC5 ="";
 let apiAddress = "https://api.openweathermap.org/data/2.5/";
 let apiCallCurrent = "weather?q=";
 let apicallForcast5 = "forecast?q=";
-let apikey = "&appid=2c0399c1f79831688f57fb28daf65e33";
+let apikey = "&units=imperial&appid=2c0399c1f79831688f57fb28daf65e33";
 let cCwReturn = undefined;
 let cC5Return = undefined;
 let latt;
 let long;
 let uv;
+let search;
 
-let search = document.getElementById("search").value;
 
 function uvCall(){
     let uvIndexcall ="https://api.openweathermap.org/data/2.5/uvi?lat="+latt+"&lon="+long+"&appid=2c0399c1f79831688f57fb28daf65e33";
@@ -34,9 +36,10 @@ function callApiCCW(){
       console.log(response);
        cCwReturn = response;
        console.log(typeof cCwReturn);
-       // latt=cCwReturn.coord.lat;
-       // long=cCwReturn.coord.lon;
-       // uvCall();
+        latt=cCwReturn.coord.lat;
+        long=cCwReturn.coord.lon;
+         uvCall();
+         callApiCC5();
           displayCurrent();
     
 
@@ -67,8 +70,6 @@ $("#searchBtn").on("click",function(){
     console.log("bui;d future call");
     callApiCCW();
     console.log("called api for ccw");
-    callApiCC5();
-    console.log("called api for cc5");
     savedCities();
 
 })
@@ -85,44 +86,76 @@ function buildFutCall(){
 
 function displayCurrent(){
     document.getElementById("cityname").textContent = cCwReturn.name;
-    document.getElementById("temp").textContent = cCwReturn.main.temp +"*F";
+    document.getElementById("temp").textContent = cCwReturn.main.temp ;
     document.getElementById("hum").textContent = cCwReturn.main.humidity +"%";
     document.getElementById("wind").textContent = cCwReturn.wind.speed +" MPH";
     latt = cCwReturn.coord.lat;
+    console.log(latt);
     long = cCwReturn.coord.lon;
-    uvCall();
+    console.log(long);
+    
     
     
 
 }
 
 function savedCities(){
-    let cities = JSON.parse(window.localStorage.getItem("Savedcities")) || [];
-
-      let newCity = {
-          name: search,
-      };
-      cities.push(newCity);
-      window.localStorage.setItem("SavedCities",JSON.stringify(cities));
-      displayCities();
+    let cities = JSON.parse(window.localStorage.getItem("SavedCities")) || [];
+    let sf = document.getElementById("search").value;
+    console.log(sf)
+    let newCity = search.toString();
+    newCity2 = newCity.toLowerCase();
+    console.log(newCity2)
+    if(cities.length>0)
+        {
+            let a = cities.indexOf(newCity2);
+             
+            console.log(a);
+                if(a == -1){
+                    
+                    cities.push(newCity2);
+                }
+                else{
+                    ;
+                }
+    }
+    else{
+            cities.push(newCity2);
+        }
+    window.localStorage.setItem("SavedCities",JSON.stringify(cities));
+     
+    displayCities();
 }
 function displayCities (){
-    let cities = JSON.parse(window.localStorage.getItem("Savedcities")) || [];
+    let cities = JSON.parse(window.localStorage.getItem("SavedCities")) || [];
+    console.log(cities);
 
-    for(i=0;i<=cities.length;i++){
+    for(i=0;i<cities.length;i++){
+        if(document.getElementById(cities[i]) == null){
         let butt = document.createElement("button");
-        //butt.textContent = cities[i][name];
+        butt.textContent = cities[i];
         butt.setAttribute("class","btn");
         butt.className +=(" btn-secondary");
         butt.className +=(" btn-lg");
+        butt.setAttribute("id",cities[i]);
         document.getElementById("cityButtons").appendChild(butt);
         let brek = document.createElement("br");
         document.getElementById("cityButtons").appendChild(brek);
+        document.getElementById(cities[i]).addEventListener("click",function(){
+            search = $(this)[0].textContent;
+            buildCurrCall();
+            buildFutCall();
+            callApiCCW();
+        })
         
+
+        }
     }
+
 
 }
 function clearCities(){
     window.localStorage.removeItem("cities");
     window.location.reload();
 }
+displayCities();
