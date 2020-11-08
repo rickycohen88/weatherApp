@@ -7,7 +7,8 @@ let cCw ="";
 let cC5 ="";
 let apiAddress = "https://api.openweathermap.org/data/2.5/";
 let apiCallCurrent = "weather?q=";
-let apicallForcast5 = "forecast?q=";
+let apicallForcast5 = "forecast/daily?q=";
+let apicall5cnt = "&cnt=5"
 let apikey = "&units=imperial&appid=2c0399c1f79831688f57fb28daf65e33";
 let cCwReturn = undefined;
 let cC5Return = undefined;
@@ -48,12 +49,13 @@ function callApiCCW(){
 }
 
 function callApiCC5(){
-
-    $.ajax({ url:cC5, method: "GET"})
+    let call5 ="https://api.openweathermap.org/data/2.5/onecall?lat="+latt+"&lon="+long+"&units=imperial&appid=2c0399c1f79831688f57fb28daf65e33";
+    $.ajax({ url:call5, method: "GET"})
     // Log the data in HTML
     .then(function(response) {
       console.log(response);
         cC5Return = response;
+        displayFive();
  
     });
 }
@@ -71,8 +73,6 @@ $("#searchBtn").on("click",function(){
 
     buildCurrCall();
     console.log("build cur call");
-    buildFutCall();
-    console.log("bui;d future call");
     callApiCCW();
     console.log("called api for ccw");
     savedCities();
@@ -84,10 +84,6 @@ function buildCurrCall(){
     cCw = apiAddress.concat(apiCallCurrent,search,apikey);
 }
 
-function buildFutCall(){
-    cC5 = "";
-    cC5 = apiAddress.concat(apicallForcast5,search,apikey);
-}
 
 function displayCurrent(){
     document.getElementById("cityname").textContent = cCwReturn.name;
@@ -152,16 +148,45 @@ function displayCities (){
         document.getElementById(cities[i]).addEventListener("click",function(){
             search = $(this)[0].textContent;
             buildCurrCall();
-            buildFutCall();
             callApiCCW();
         })
         
 
         }
     }
+}
+
+function displayFive(){
+
+for(i=1;i<=5;i++)
+    {
+    let day = i;
+    let daytxt = "day"+(day.toString());
+    console.log(daytxt);
+    let list = document.createElement("ul");
+    let q = document.createElement("li");
+    let t = moment().add(1,'d');
+    s = t.format('L');
+    q.textContent = s;
+    list.appendChild(q);
+    let l1 =document .createElement("li");
+    l1.textContent = cC5Return.daily[i+1].temp.day+" F";
+    list.appendChild(l1);
+    let l2 = document.createElement("li");
+    l2.textContent = cC5Return.daily[i+1].humidity+" %";
+    list.appendChild(l2);
+    let img = document.createElement("img");
+    img.setAttribute("src","http://openweathermap.org/img/wn/"+cC5Return.daily[i+1].weather[0].icon+"@2x.png");
+    list.appendChild(img);
+    document.getElementById(daytxt).appendChild(list);
+    }
+    
+
+
 
 
 }
+
 function clearCities(){
     window.localStorage.removeItem("cities");
     window.location.reload();
