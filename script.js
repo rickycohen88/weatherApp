@@ -157,12 +157,13 @@ function displayCities (){
 }
 
 function displayFive(){
+    $("#5Day").empty();
 
 for(i=1;i<=5;i++)
     {
     let day = i;
     let daytxt = "day"+(day.toString());
-    console.log(daytxt);
+    document.getElementById(daytxt).innerHTML="";
     let list = document.createElement("ul");
     let q = document.createElement("li");
     let t = moment().add(1,'d');
