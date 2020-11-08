@@ -170,10 +170,10 @@ for(i=1;i<=5;i++)
     q.textContent = s;
     list.appendChild(q);
     let l1 =document .createElement("li");
-    l1.textContent = cC5Return.daily[i+1].temp.day+" F";
+    l1.textContent = "Temp: "+cC5Return.daily[i+1].temp.day+" F";
     list.appendChild(l1);
     let l2 = document.createElement("li");
-    l2.textContent = cC5Return.daily[i+1].humidity+" %";
+    l2.textContent = "Hum: "+cC5Return.daily[i+1].humidity+" %";
     list.appendChild(l2);
     let img = document.createElement("img");
     img.setAttribute("src","http://openweathermap.org/img/wn/"+cC5Return.daily[i+1].weather[0].icon+"@2x.png");
