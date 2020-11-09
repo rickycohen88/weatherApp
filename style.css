@@ -19,4 +19,24 @@ aside{
 }
 .btn{
     margin: 2px;
+    font-size: small;
+    
+}
+#clear{
+    width: 200px;
+}
+.ctyBtn{
+    width: 200px;
+}
+
+
+@media (max-width: 500px){
+    aside{
+        float: none;
+
+    }
+    #fiveDayDisplay{
+    max-width: 500px;
+    }
+    
 }

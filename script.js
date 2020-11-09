@@ -141,6 +141,7 @@ function displayCities (){
         butt.setAttribute("class","btn");
         butt.className +=(" btn-secondary");
         butt.className +=(" btn-lg");
+        butt.className +=(" ctyBtn");
         butt.setAttribute("id",cities[i]);
         document.getElementById("cityButtons").appendChild(butt);
         let brek = document.createElement("br");
@@ -187,9 +188,9 @@ for(i=1;i<=5;i++)
 
 
 }
-
-function clearCities(){
-    window.localStorage.removeItem("cities");
+$("#clear").on("click",function(){
+    window.localStorage.removeItem("SavedCities");
     window.location.reload();
-}
+});
+    
 displayCities();

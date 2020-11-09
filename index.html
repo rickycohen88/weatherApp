@@ -33,7 +33,7 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <button class="btn btn-warning btn-lg">Clear Cities</button>
+                    <button class="btn btn-warning btn-lg" id="clear">Clear Cities</button>
                 </div>
             </div>
             <div class="row">
@@ -86,21 +86,22 @@
             </div>
         </main>
         <section class="container">
-            <div class="row">
-                <div class="col-md-8">
-                    <h3>5-Day Forecast</h3>
-                    <table>
-                        <tr>
-                        <td id="day1"></td>
-                        <td id="day2"></td>
-                        <td id="day3"></td>
-                        <td id="day4"></td>
-                        <td id="day5"></td>
-                        </tr>
-                    </table>
+            <div class="overflow-auto" id="fiveDayDisplay">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h3>5-Day Forecast</h3>
+                        <table>
+                            <tr>
+                            <td id="day1"></td>
+                            <td id="day2"></td>
+                            <td id="day3"></td>
+                            <td id="day4"></td>
+                            <td id="day5"></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
-
         </section>
 
 
