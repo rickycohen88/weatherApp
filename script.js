@@ -167,7 +167,7 @@ for(i=1;i<=5;i++)
     document.getElementById(daytxt).innerHTML="";
     let list = document.createElement("ul");
     let q = document.createElement("li");
-    let t = moment().add(1,'d');
+    let t = moment().add(i,'d');
     s = t.format('L');
     q.textContent = s;
     list.appendChild(q);
