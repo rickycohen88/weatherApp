@@ -18,7 +18,9 @@ searched cities in local storage for easy access. Those stored cities will be di
 
 
 ### Usage 
+plan your day or week with the weather in mind.
 
+### Instalation
 To make the project work you will need -
 * an editor or ide that will save file in the proper types*(html,css,javascript)* <br>
 `Visual Studio or Visual Studio Code` will work great.
@@ -26,9 +28,9 @@ To make the project work you will need -
 just download the files directly for git hub.
 
 ### Deployed website and screenshots
-![Image](images/title.JPG "website title")
-![Image](images/Screen1.JPG "Screenshot 1")
-![Image](images/screen2.JPG "Screenshot 2")
+![Image](images/Main.PNG "website title")
+![Image](images/AutoCorrect.PNG "Screenshot 1")
+![Image](images/Portable.PNG "Screenshot 2")
 
 [Link](https://rickycohen88.github.io/weatherApp/)
 
@@ -43,10 +45,8 @@ please open an issue first to discuss what you would like to change.<br>
 
 
 ### License
-
-    Made with ❤️️ by Horiseon
-    2019 Horiseon Social Solution Services, Inc.
-    
+    Moment.js is freely distributable under the terms of the MIT license.
+    © 2012 — 2020 OpenWeather ® All rights reserved.(Creative Commons Attribution-ShareAlike 4.0 International licence (CC BY-SA 4.0).)
     © 2020 Trilogy Education Services, a 2U, Inc. brand. All Rights Reserved.
 
 
